@@ -1410,34 +1410,46 @@ html.atmo-boost .mobile-atmosphere::before {
   }
 
   [class*="-story-carousel__stage"] {
-    background: rgba(251, 249, 255, 0.4) !important;
-    backdrop-filter: blur(16px) saturate(1.08);
-    -webkit-backdrop-filter: blur(16px) saturate(1.08);
+    background: rgba(251, 249, 255, 0.14) !important;
+    backdrop-filter: blur(6px) saturate(1.04);
+    -webkit-backdrop-filter: blur(6px) saturate(1.04);
   }
 
   [class*="-story-carousel__stage"][data-tone="night"] {
-    background: rgba(11, 13, 24, 0.38) !important;
+    background: rgba(11, 13, 24, 0.2) !important;
   }
 
   [class*="-story-carousel__stage"][data-tone="dawn"],
   [class*="-story-carousel__stage"][data-tone="light"] {
-    background: rgba(247, 243, 255, 0.52) !important;
+    background: rgba(247, 243, 255, 0.16) !important;
   }
 
   [class*="-still--light"],
   .mt-still,
   .el-still--open {
-    background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.48), rgba(247, 243, 255, 0.32)) !important;
-    backdrop-filter: blur(14px) saturate(1.06);
-    -webkit-backdrop-filter: blur(14px) saturate(1.06);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(247, 243, 255, 0.12)) !important;
+    backdrop-filter: blur(6px) saturate(1.04);
+    -webkit-backdrop-filter: blur(6px) saturate(1.04);
   }
 
   [class*="-still--night"] {
-    background:
-      linear-gradient(180deg, rgba(20, 18, 36, 0.5), rgba(10, 12, 22, 0.36)) !important;
-    backdrop-filter: blur(14px) saturate(1.06);
-    -webkit-backdrop-filter: blur(14px) saturate(1.06);
+    background: linear-gradient(180deg, rgba(20, 18, 36, 0.22), rgba(10, 12, 22, 0.14)) !important;
+    backdrop-filter: blur(6px) saturate(1.04);
+    -webkit-backdrop-filter: blur(6px) saturate(1.04);
+  }
+
+  .ns-still--light .ns-still-week-block,
+  .ns-still--light .ns-still-remember,
+  .ns-still--light .ns-still-move,
+  .ns-still-letter,
+  .mt-still-card,
+  .mt-still-link,
+  .mt-still-facts {
+    background: rgba(255, 255, 255, 0.42) !important;
+  }
+
+  .mt-vow {
+    background: linear-gradient(180deg, rgba(255, 252, 246, 0.42) 0%, rgba(247, 239, 226, 0.28) 100%) !important;
   }
 
   .mh-page,
@@ -1445,8 +1457,8 @@ html.atmo-boost .mobile-atmosphere::before {
   .el-sky,
   .lt-open,
   .md-move {
-    backdrop-filter: blur(14px) saturate(1.06);
-    -webkit-backdrop-filter: blur(14px) saturate(1.06);
+    backdrop-filter: blur(6px) saturate(1.04);
+    -webkit-backdrop-filter: blur(6px) saturate(1.04);
   }
 }
 
