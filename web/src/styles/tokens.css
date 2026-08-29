@@ -1,0 +1,227 @@
+/**
+ * Mahout Design Tokens — Mapped 1:1 from Android app
+ * Source: values-night/colors.xml, mahout_dimens.xml, drawables
+ * Do not invent. Use these everywhere.
+ */
+
+:root {
+  /* ── 1) Colors (Dark / Premium) ───────────────────────────── */
+  --mahout_bg: #06070D;
+  --mahout_surface: #11131E;
+  --mahout_surface_alt: #191B2A;
+  --mahout_stroke: #282B3B;
+
+  --mahout_outline_soft: rgba(255, 255, 255, 0.12);
+  --mahout_outline_strong: rgba(255, 255, 255, 0.28);
+  --mahout_outline_gold: rgba(255, 211, 138, 0.22);
+
+  --mahout_text_primary: #FBF8F0;
+  --mahout_text_secondary: #C9C2D7;
+  --mahout_text_tertiary: #8F88A3;
+
+  --mahout_accent: #A99CFF;
+  --mahout_accent_soft: #2A2540;
+  --mahout_on_accent: #0B0B0B;
+  --mahout_gold: #FFD38A;
+  --mahout_gold_soft: rgba(255, 211, 138, 0.14);
+
+  --mahout_ripple_light: #22FFFFFF;
+  --mahout_ripple_dark: #14000000;
+
+  --mahout_disabled_bg: #2C2C2C;
+
+  --mahout_gold_10: rgba(255, 211, 138, 0.12);
+  --mahout_premium_accent_2: rgba(169, 156, 255, 0.48);
+
+  /* ── 2) Glass overlays ───────────────────────────────────── */
+  --onboarding_glass_bg: rgba(18, 18, 26, 0.8);
+  --onboarding_glass_stroke: rgba(255, 255, 255, 0.15);
+  --onboarding_glass_input_bg: rgba(18, 18, 26, 0.6);
+
+  --onboarding_goal_glass_bg: rgba(26, 28, 40, 0.62);
+  --onboarding_goal_glass_stroke: rgba(255, 255, 255, 0.05);
+
+  --onboarding_habit_card_glass: rgba(18, 18, 26, 0.3);
+  --mahout_surface_glass: rgba(13, 15, 27, 0.66);
+  --mahout_surface_glass_strong: rgba(17, 19, 33, 0.88);
+  --mahout_surface_elevated: rgba(255, 255, 255, 0.065);
+  --mahout_surface_quiet: rgba(255, 255, 255, 0.035);
+  --mahout_panel_gradient: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.135) 0%,
+    rgba(255, 255, 255, 0.062) 48%,
+    rgba(255, 255, 255, 0.032) 100%
+  );
+  --mahout_panel_border: rgba(255, 255, 255, 0.13);
+
+  /* North Star user glass (gradient template) */
+  --glass_ns_gradient: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.16) 0%,
+    rgba(169, 156, 255, 0.085) 46%,
+    rgba(255, 255, 255, 0.045) 100%
+  );
+  --glass_ns_stroke: rgba(255, 255, 255, 0.13);
+
+  /* Elephant footer glass */
+  --glass_elephant: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.16) 0%,
+    rgba(255, 255, 255, 0.09) 50%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+
+  /* Inner highlight (crafted feel) */
+  --glass_inner_highlight: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.19) 0%,
+    rgba(255, 255, 255, 0.06) 50%,
+    rgba(255, 255, 255, 0.04) 100%
+  );
+
+  /* ── 3) Radii + spacing (mahout_dimens) ─────────────────── */
+  --mahout_radius_card: 24px;
+  --mahout_radius_sheet: 28px;
+  --mahout_radius_button: 16px;
+  --mahout_radius_input: 16px;
+  --mahout_radius_chip: 999px;
+  --mahout_radius_pill: 999px;
+
+  --mahout_stroke_1: 1px;
+
+  --mahout_space_4: 16px;
+  --mahout_space_6: 24px;
+  --mahout_space_8: 8px;
+  --mahout_space_12: 12px;
+  --mahout_space_16: 16px;
+  --mahout_space_18: 72px;
+  --mahout_space_24: 24px;
+  --mahout_space_32: 32px;
+  --mahout_space_40: 40px;
+  --mahout_space_48: 48px;
+  --mahout_space_64: 64px;
+  --mahout_space_80: 80px;
+
+  --mahout_btn_height: 48px;
+  --mahout_btn_height_small: 36px;
+  --mahout_btn_padding_h: 18px;
+
+  /* ── 4) Deep space gradient ───────────────────────────────── */
+  --bg_deep_space: linear-gradient(180deg, #03040A 0%, #080B1E 48%, #03040A 100%);
+
+  /* ── 5) Halo glow (warm premium) ──────────────────────────── */
+  --bg_halo: radial-gradient(
+    ellipse 180px 180px at 50% 50%,
+    rgba(255, 211, 138, 0.33) 0%,
+    rgba(255, 211, 138, 0.13) 50%,
+    transparent 100%
+  );
+
+  /* ── 6) Chip tokens ──────────────────────────────────────── */
+  --chip_bg: var(--mahout_surface);
+  --chip_stroke: var(--mahout_outline_soft);
+  --chip_text: var(--mahout_text_primary);
+  --chip_min_height: 36px;
+  --chip_padding_h: 12px;
+
+  /* ── 7) Shadows (wide, soft, deep) ───────────────────────── */
+  --shadow_s: 0 6px 20px -8px rgba(0, 0, 0, 0.45);
+  --shadow_m: 0 18px 54px -20px rgba(0, 0, 0, 0.62);
+  --shadow_l: 0 34px 110px -34px rgba(0, 0, 0, 0.68);
+  --shadow_xl: 0 54px 170px -48px rgba(0, 0, 0, 0.78);
+  --shadow_glow_purple: 0 0 72px rgba(169, 156, 255, 0.26);
+  --shadow_glow_gold: 0 0 64px rgba(255, 211, 138, 0.17);
+
+  --section_overlay: rgba(156, 140, 255, 0.06);
+
+  /* ── 8) Max content + section padding ────────────────────── */
+  --max_content: 1188px;
+  --section_padding_desk: 132px;
+  --section_padding_mobile: 84px;
+  --section_py: clamp(72px, 9vh, 120px);
+  --section_py_mobile: clamp(52px, 7vh, 84px);
+  --stack_gap: clamp(28px, 4vh, 56px);
+  --card_gap: clamp(14px, 2vh, 24px);
+
+  /* ── 9) Typography ───────────────────────────────────────── */
+  --font_head: var(--font-space-grotesk), system-ui, sans-serif;
+  --font_body: var(--font-inter), system-ui, sans-serif;
+  --text_h1: clamp(48px, 7.8vw, 112px);
+  --text_h2: clamp(32px, 4.6vw, 64px);
+  --text_h3: clamp(22px, 2.5vw, 28px);
+  --text_body: clamp(16px, 1.5vw, 18px);
+  --text_caption: 12px;
+  --leading_tight: 1.08;
+  --leading_body: 1.65;
+  --prose_max: 60ch;
+  --text_body_m: clamp(14px, 1.2vw, 16px);
+  --leading_relaxed: 1.6;
+  --text_display: clamp(54px, 9vw, 132px);
+  --text_kicker: clamp(13px, 1.1vw, 15px);
+
+  /* Aliases (components) */
+  --radius_pill: var(--mahout_radius_pill);
+  --radius_btn: var(--mahout_radius_button);
+  --bg_base: var(--mahout_bg);
+  --bg_deep: var(--mahout_bg);
+  --accent_glow: var(--mahout_premium_accent_2);
+  /* ── 10) Motion ──────────────────────────────────────────── */
+  --ease_out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease_smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration_micro: 140ms;
+  --duration_small: 250ms;
+
+  /* Premium dark aliases for older routes/components that used the light system. */
+  --font-head: var(--font_head);
+  --font-headline: var(--font_head);
+  --font-body: var(--font_body);
+  --text-primary: var(--mahout_text_primary);
+  --text-secondary: var(--mahout_text_secondary);
+  --text-caption: var(--text_caption);
+  --text-body-m: var(--text_body_m);
+  --text-body-l: clamp(17px, 1.6vw, 20px);
+  --text-base: var(--text_body_m);
+  --text-lg: clamp(18px, 1.8vw, 22px);
+  --text-xl: clamp(20px, 2vw, 26px);
+  --text-2xl: var(--text_h2);
+  --text-4xl: var(--text_h1);
+  --text-h2: var(--text_h2);
+  --text-h3: var(--text_h3);
+  --leading-body: var(--leading_body);
+  --leading-relaxed: var(--leading_relaxed);
+  --tracking-tight: -0.04em;
+  --radius-card: var(--mahout_radius_card);
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-pill: var(--mahout_radius_pill);
+  --border: var(--mahout_outline_soft);
+  --glass-fill: var(--mahout_surface_glass);
+  --glass-border: var(--mahout_panel_border);
+  --muted: var(--mahout_text_tertiary);
+  --ink: var(--mahout_text_primary);
+  --inkSoft: var(--mahout_text_secondary);
+  --violet-500: var(--mahout_accent);
+  --lavenderPrimary: var(--mahout_accent);
+  --lavenderDeep: var(--mahout_text_primary);
+  --lavenderSurface: var(--mahout_surface_elevated);
+  --lavenderMist: rgba(156, 140, 255, 0.08);
+  --warmWhite: var(--mahout_bg);
+  --goldWash: rgba(255, 211, 138, 0.12);
+  --northStarGold: var(--mahout_outline_gold);
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-30: 120px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration_micro: 0ms;
+    --duration_small: 0ms;
+  }
+}

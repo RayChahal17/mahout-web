@@ -1,0 +1,24 @@
+# Mahout Web — Cursor Rules
+
+When implementing features for this project, follow these rules:
+
+## Design System
+- Use design tokens from `docs/design-tokens.css` — never hardcode colors.
+- **Gold rule:** Gold tokens (northStarGold, goldAccent, goldWash) appear ONLY in: North Star hero section, North Star page halo, micro CTA halo on hero (once). Everywhere else: lavender + warm paper + charcoal.
+- Typography: body text ≥16px on mobile, ideally 17–18px. Whitespace is the luxury.
+
+## Copy & Tone
+- Tone: calm luxury + decisive clarity. No hustle language. No cringe motivation. No therapy claims.
+- Brand anchor: "Mahout is a personal operating system that turns your meaning, emotions, and time into calm next steps—guided by Future You."
+
+## Layout
+- Mobile-first. One-column. Sticky bottom CTA: "Join waitlist".
+- 1-thumb navigation. Scroll storytelling.
+
+## Assets
+- Images and videos are placeholders. User will supply later. Use `PhoneFrame` component with placeholder content. Add descriptive alt text for accessibility.
+
+## Tech Stack
+- Frontend: Next.js (App Router) for SEO — or migrate from existing Vite/React.
+- Backend: Express + MongoDB for waitlist, events.
+- See `CURSOR_HANDOFF.md` for full spec and implementation order.

@@ -1,0 +1,121 @@
+/**
+ * Mahout Design Tokens — Premium Lavender System
+ * Use this file as the single source of truth for colors, spacing, typography.
+ * Gold is used SPARINGLY — only in "expensive moments" (North Star, hero CTA halo).
+ */
+
+:root {
+  /* ═══════════════════════════════════════════════════════════
+     LAVENDER (primary atmosphere)
+     ═══════════════════════════════════════════════════════════ */
+  --lavenderMist: #F7F6FB;      /* background wash */
+  --lavenderSurface: #E9E6FF;   /* cards / surfaces */
+  --lavenderPrimary: #7A5CFF;   /* primary CTA + key links */
+  --lavenderDeep: #5636D3;      /* headlines + emphasis */
+
+  /* ═══════════════════════════════════════════════════════════
+     WARM PAPER
+     ═══════════════════════════════════════════════════════════ */
+  --warmWhite: #FFFDFC;         /* main canvas */
+  --warmCream: #FFF6E8;         /* soft gradient edge */
+
+  /* ═══════════════════════════════════════════════════════════
+     GOLD (expensive moments ONLY — use sparingly)
+     ═══════════════════════════════════════════════════════════ */
+  --northStarGold: #D8A85B;     /* hairline border / halo */
+  --goldAccent: #FFB661;        /* premium CTA shimmer, badges */
+  --goldWash: #FFF4DC;          /* rare background glow behind North Star */
+
+  /* ═══════════════════════════════════════════════════════════
+     INK (text)
+     ═══════════════════════════════════════════════════════════ */
+  --ink: #2F3337;               /* primary text */
+  --inkSoft: #505763;           /* secondary text */
+  --border: #D7DDE5;
+  --muted: #B0B5BC;
+
+  /* ═══════════════════════════════════════════════════════════
+     SEMANTIC ALIASES (map to above)
+     ═══════════════════════════════════════════════════════════ */
+  --color-bg: var(--warmWhite);
+  --color-bg-wash: var(--lavenderMist);
+  --color-surface: var(--lavenderSurface);
+  --color-primary: var(--lavenderPrimary);
+  --color-primary-deep: var(--lavenderDeep);
+  --color-text: var(--ink);
+  --color-text-soft: var(--inkSoft);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+
+  /* ═══════════════════════════════════════════════════════════
+     SPACING (8px grid)
+     ═══════════════════════════════════════════════════════════ */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* ═══════════════════════════════════════════════════════════
+     RADIUS
+     ═══════════════════════════════════════════════════════════ */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-pill: 999px;
+
+  /* ═══════════════════════════════════════════════════════════
+     TYPOGRAPHY (mobile-first)
+     Body never below 16px, ideally 17–18px
+     ═══════════════════════════════════════════════════════════ */
+  --font-headline: "Your Display Serif", Georgia, serif;
+  --font-body: "Your Clean Sans", system-ui, -apple-system, sans-serif;
+
+  --text-xs: 13px;
+  --text-sm: 14px;
+  --text-base: 17px;    /* mobile-optimized */
+  --text-lg: 18px;
+  --text-xl: 20px;
+  --text-2xl: 24px;
+  --text-3xl: clamp(28px, 4vw, 36px);
+  --text-4xl: clamp(32px, 5vw, 48px);
+  --text-5xl: clamp(40px, 6vw, 56px);
+
+  --leading-tight: 1.1;
+  --leading-snug: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.65;
+  --leading-loose: 1.75;
+
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.01em;
+
+  /* ═══════════════════════════════════════════════════════════
+     SHADOWS (soft, premium)
+     ═══════════════════════════════════════════════════════════ */
+  --shadow-sm: 0 2px 8px rgba(122, 92, 255, 0.06);
+  --shadow-md: 0 8px 24px rgba(122, 92, 255, 0.08);
+  --shadow-lg: 0 16px 48px rgba(122, 92, 255, 0.12);
+  --shadow-card: 0 4px 20px rgba(122, 92, 255, 0.06);
+
+  /* ═══════════════════════════════════════════════════════════
+     TRANSITIONS (calm, breathing)
+     ═══════════════════════════════════════════════════════════ */
+  --ease-calm: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+}
+
+/* Gold usage — only add when in North Star context */
+[data-section="north-star"] {
+  --accent-halo: var(--northStarGold);
+  --accent-glow: var(--goldWash);
+}

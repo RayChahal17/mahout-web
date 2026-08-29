@@ -1,0 +1,582 @@
+/* Habits stills — proof, recovery, window. Not rings, not a streak app. */
+
+.hb-story-carousel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.hb-story-carousel__stage {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: 22px;
+  overflow: hidden;
+  container-type: inline-size;
+  background: #0e0c18;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 0 1px rgba(156, 140, 255, 0.28),
+    0 28px 64px rgba(8, 10, 22, 0.42);
+}
+
+.hb-story-carousel__stage::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  z-index: 3;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+}
+
+.hb-story-carousel__stage[data-tone="dawn"] {
+  background: linear-gradient(180deg, #f7f3ff 0%, #ece6ff 52%, #dcd4f4 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.82),
+    0 0 0 1px rgba(156, 140, 255, 0.28),
+    0 28px 64px rgba(8, 10, 22, 0.42);
+}
+
+.hb-story-carousel__stage[data-tone="dawn"]::after {
+  border-color: rgba(255, 255, 255, 0.42);
+}
+
+.hb-story-carousel__pane {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  animation: hbStoryPaneIn 480ms ease both;
+}
+
+.hb-still {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 18px 16px 16px;
+  font-family: var(--font_body);
+  -webkit-font-smoothing: antialiased;
+}
+
+.hb-kicker {
+  margin: 0;
+  color: #7a6ea3;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.hb-kicker--night {
+  position: relative;
+  z-index: 1;
+  color: rgba(232, 226, 248, 0.68);
+}
+
+.hb-still--night {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 22% 8%, rgba(196, 184, 255, 0.2), transparent 36%),
+    radial-gradient(ellipse at 50% -8%, rgba(156, 140, 255, 0.28), transparent 54%),
+    linear-gradient(180deg, #1a1630 0%, #0c0a14 100%);
+}
+
+.hb-still--dawn {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 50% 18%, rgba(255, 252, 246, 0.92), transparent 44%),
+    radial-gradient(ellipse at 50% 100%, rgba(196, 184, 255, 0.22), transparent 48%),
+    linear-gradient(180deg, #f7f3ff 0%, #ece6ff 52%, #dcd4f4 100%);
+}
+
+.hb-veil {
+  position: absolute;
+  inset: 14% 4% auto;
+  height: 48%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 50% 40%, rgba(196, 184, 255, 0.2), transparent 68%);
+  pointer-events: none;
+}
+
+.hb-moon {
+  position: absolute;
+  top: 16%;
+  right: 14%;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: inset -7px 0 0 0 rgba(196, 184, 255, 0.52);
+  opacity: 0.72;
+  pointer-events: none;
+}
+
+.hb-dawn {
+  position: absolute;
+  top: 6%;
+  left: 50%;
+  width: 148px;
+  height: 148px;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  background:
+    radial-gradient(circle at 42% 38%, rgba(255, 255, 255, 0.96), rgba(232, 226, 248, 0.18) 46%, transparent 72%);
+  pointer-events: none;
+}
+
+.hb-hourglow {
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  bottom: 28%;
+  height: 54px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 50% 50%, rgba(109, 95, 214, 0.16), transparent 72%);
+  pointer-events: none;
+}
+
+.hb-close {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding-top: 12px;
+  border-top: 1px solid rgba(232, 226, 248, 0.12);
+  color: rgba(196, 184, 255, 0.78);
+  font-size: 12px;
+  letter-spacing: 0.03em;
+}
+
+/* 1 — 21 lives in night, proof rises as a path */
+
+.hb-still--signal {
+  justify-content: space-between;
+}
+
+.hb-monument {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4px 2px 8px;
+}
+
+.hb-monument__mark {
+  margin: 0;
+  color: #fbf8f0;
+  font-family: var(--font_head);
+  font-size: clamp(68px, 28cqi, 88px);
+  line-height: 0.78;
+  letter-spacing: -0.075em;
+  font-weight: 700;
+  text-shadow: 0 18px 40px rgba(8, 10, 22, 0.35);
+}
+
+.hb-monument__name {
+  margin: 16px 0 0;
+  color: rgba(232, 226, 248, 0.84);
+  font-size: 17px;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  max-width: 12ch;
+}
+
+.hb-path {
+  display: block;
+  width: min(220px, 88%);
+  height: auto;
+  margin-top: 30px;
+  overflow: visible;
+}
+
+.hb-path-meta {
+  display: flex;
+  justify-content: space-between;
+  width: min(220px, 88%);
+  margin-top: 8px;
+  color: rgba(196, 184, 255, 0.58);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* 2 — 66 as a night folio, one reading */
+
+.hb-still--folio {
+  gap: 12px;
+}
+
+.hb-folio {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  padding: 22px 18px 16px;
+  border-radius: 18px;
+  color-scheme: light;
+  color: #1c1914;
+  background:
+    repeating-linear-gradient(
+      180deg,
+      transparent 0 27px,
+      rgba(44, 40, 31, 0.035) 27px 28px
+    ),
+    linear-gradient(180deg, rgba(255, 252, 246, 0.98) 0%, rgba(247, 239, 226, 0.95) 100%);
+  box-shadow:
+    0 28px 54px rgba(8, 10, 22, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.82);
+}
+
+.hb-folio__watermark {
+  position: absolute;
+  right: -8%;
+  bottom: -6%;
+  color: rgba(109, 95, 214, 0.1);
+  font-family: var(--font_head);
+  font-size: clamp(104px, 48cqi, 140px);
+  line-height: 0.72;
+  letter-spacing: -0.08em;
+  font-weight: 700;
+  pointer-events: none;
+  user-select: none;
+}
+
+.hb-folio__from {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 22px;
+  color: #6d5fd6;
+  -webkit-text-fill-color: #6d5fd6;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.hb-folio__reads {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.hb-folio__body {
+  margin: 0;
+  padding: 11px 0;
+  border-top: 1px solid rgba(44, 40, 31, 0.08);
+  color: #1c1914 !important;
+  -webkit-text-fill-color: #1c1914 !important;
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  font-size: 17px;
+  line-height: 1.4;
+  letter-spacing: -0.015em;
+  font-weight: 500;
+}
+
+.hb-folio__body:last-child {
+  border-bottom: 1px solid rgba(44, 40, 31, 0.08);
+}
+
+.hb-folio__close {
+  position: relative;
+  z-index: 1;
+  margin: auto 0 0;
+  padding-top: 14px;
+  color: #1c1914;
+  -webkit-text-fill-color: #1c1914;
+  font-family: var(--font_head);
+  font-size: 14px;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+
+/* 3 — Comeback: two papers, one thread */
+
+.hb-still--return {
+  justify-content: space-between;
+}
+
+.hb-return {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0;
+  padding: 8px 0;
+}
+
+.hb-slip {
+  padding: 16px 16px 18px;
+  border-radius: 16px;
+  color-scheme: light;
+  color: #1c1914;
+  background:
+    linear-gradient(180deg, rgba(255, 252, 246, 0.97) 0%, rgba(247, 239, 226, 0.94) 100%);
+  box-shadow:
+    0 20px 40px rgba(8, 10, 22, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.84);
+}
+
+.hb-slip--miss {
+  width: 82%;
+  transform: rotate(-2deg);
+  opacity: 0.62;
+  filter: saturate(0.86);
+}
+
+.hb-slip--back {
+  width: 94%;
+  margin-left: auto;
+  transform: rotate(0.8deg);
+  box-shadow:
+    0 26px 48px rgba(8, 10, 22, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.86);
+}
+
+.hb-thread {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 0;
+}
+
+.hb-thread i:first-child,
+.hb-thread i:last-child {
+  width: 1px;
+  height: 8px;
+}
+
+.hb-thread i:first-child {
+  background: linear-gradient(180deg, rgba(196, 184, 255, 0.1), rgba(196, 184, 255, 0.7));
+}
+
+.hb-thread i:last-child {
+  background: linear-gradient(180deg, rgba(196, 184, 255, 0.7), rgba(196, 184, 255, 0.1));
+}
+
+.hb-seal {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(196, 184, 255, 0.46);
+  background: radial-gradient(circle at 40% 34%, rgba(196, 184, 255, 0.18), transparent 68%);
+  color: rgba(196, 184, 255, 0.86);
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  box-shadow: 0 0 18px rgba(196, 184, 255, 0.16);
+}
+
+.hb-slip__stamp {
+  margin: 0 0 8px;
+  color: #6d5fd6;
+  -webkit-text-fill-color: #6d5fd6;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.hb-slip__body {
+  margin: 0;
+  color: #1c1914 !important;
+  -webkit-text-fill-color: #1c1914 !important;
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  font-size: 16px;
+  line-height: 1.4;
+  letter-spacing: -0.015em;
+  font-weight: 500;
+}
+
+/* 4 — Window: the hour sits in morning, not a meter */
+
+.hb-still--hour {
+  justify-content: flex-start;
+}
+
+.hb-hour {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 8px 8px 20px;
+}
+
+.hb-hour__label {
+  margin: 0 0 12px;
+  color: #6d5fd6;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.hb-hour h3 {
+  margin: 0;
+  color: #1c1914;
+  font-family: var(--font_head);
+  font-size: clamp(30px, 7.4cqi, 38px);
+  line-height: 0.92;
+  letter-spacing: -0.055em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.hb-arc {
+  display: block;
+  width: min(188px, 82%);
+  height: auto;
+  margin: 22px auto 0;
+  overflow: visible;
+}
+
+.hb-hour__ends {
+  display: flex;
+  justify-content: space-between;
+  width: min(188px, 82%);
+  margin: 6px auto 16px;
+  color: #6d5fd6;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.hb-hour__note {
+  margin: 0;
+  color: #5b566c;
+  font-size: 15px;
+  line-height: 1.45;
+  max-width: 14ch;
+}
+
+.hb-story-carousel__caption {
+  padding: 2px 2px 0;
+}
+
+.hb-story-carousel__eyebrow {
+  margin: 0 0 4px;
+  color: rgba(196, 186, 255, 0.95);
+  font-size: 10px;
+  line-height: 1.2;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.hb-story-carousel__title {
+  margin: 0;
+  color: var(--mahout_text_primary);
+  font-family: var(--font_head);
+  font-size: clamp(15px, 1.45vw, 18px);
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  text-shadow: 0 8px 22px rgba(8, 10, 22, 0.45);
+}
+
+.hb-story-carousel__progress {
+  margin-top: 2px;
+}
+
+.hb-story-carousel .hb-story-carousel__progress button span {
+  background: linear-gradient(90deg, rgba(156, 140, 255, 0.95), rgba(196, 184, 255, 0.72));
+}
+
+@keyframes hbStoryPaneIn {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 8px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hb-story-carousel__pane {
+    animation: none;
+  }
+}
+
+.element-deep-visual-composed[data-element="habits"] .element-deep-art-panel {
+  padding-bottom: clamp(128px, 16vw, 196px);
+}
+
+.element-deep-visual-composed[data-element="habits"] .element-deep-story-stage {
+  position: absolute;
+  right: clamp(6px, 1.6vw, 18px);
+  bottom: clamp(8px, 1.8vw, 18px);
+  z-index: 6;
+  width: min(392px, 58%);
+  filter: drop-shadow(0 28px 64px rgba(8, 10, 22, 0.52));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .element-deep-visual-composed[data-element="habits"] .element-deep-story-stage {
+    animation: elementDeepPhoneFloat 9s ease-in-out infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .element-deep-visual-composed[data-element="habits"] .element-deep-story-stage {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+@media (max-width: 979px) {
+  .element-deep-visual-composed[data-element="habits"] .element-deep-art-panel {
+    padding-bottom: clamp(96px, 22vw, 148px);
+  }
+
+  .element-deep-visual-composed[data-element="habits"] .element-deep-story-stage {
+    width: min(360px, 88%);
+    right: clamp(8px, 4vw, 24px);
+    bottom: clamp(0px, 2vw, 8px);
+  }
+}
+
+@media (max-width: 620px) {
+  .element-deep-visual-composed[data-element="habits"] .element-deep-art-panel {
+    padding-bottom: 112px;
+  }
+
+  .element-deep-visual-composed[data-element="habits"] .element-deep-story-stage {
+    left: 50%;
+    right: auto;
+    width: min(320px, 86%);
+    transform: translateX(-50%);
+    animation: none;
+    bottom: 8px;
+  }
+
+  .hb-monument__mark {
+    font-size: 68px;
+  }
+
+  .hb-folio__watermark {
+    font-size: 108px;
+  }
+
+  .hb-folio__body {
+    font-size: 16px;
+  }
+
+  .hb-hour h3 {
+    font-size: 28px;
+  }
+}
