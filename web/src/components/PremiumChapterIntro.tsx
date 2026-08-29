@@ -370,6 +370,13 @@ export function PremiumChapterIntro({
           to { width: 100%; }
         }
 
+        @media (max-width: 720px) {
+          .premium-chapter-intro h2 {
+            max-width: min(20ch, 100%);
+            overflow-wrap: break-word;
+          }
+        }
+
         @media (min-width: 920px) {
           .premium-chapter-intro {
             grid-template-columns: minmax(0, 0.92fr) minmax(360px, 0.72fr);

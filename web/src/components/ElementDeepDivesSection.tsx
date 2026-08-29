@@ -1223,6 +1223,13 @@ export function ElementDeepDivesSection() {
           }
         }
 
+        @media (max-width: 720px) {
+          .element-deep-headline {
+            max-width: min(20ch, 100%);
+            overflow-wrap: break-word;
+          }
+        }
+
         @media (max-width: 760px) {
           #element-deep-dives .element-deep-dive-card {
             gap: var(--mahout_space_16) !important;

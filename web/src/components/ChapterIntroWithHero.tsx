@@ -289,6 +289,13 @@ export function ChapterIntroWithHero({
           }
         }
 
+        @media (max-width: 720px) {
+          .chapter-intro-with-hero h2 {
+            max-width: min(20ch, 100%);
+            overflow-wrap: break-word;
+          }
+        }
+
         @media (max-width: 979px) {
           .chapter-hero-visual-stack {
             order: -1;

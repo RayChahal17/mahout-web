@@ -41,6 +41,7 @@ export function Footer() {
 
   return (
     <footer
+      className="site-footer"
       style={{
         position: "relative",
         borderTop: "1px solid var(--mahout_outline_soft)",
@@ -246,6 +247,12 @@ export function Footer() {
 
         .eonex-credit-link:hover {
           color: var(--mahout_text_secondary);
+        }
+
+        @media (max-width: 720px) {
+          .site-footer {
+            padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+          }
         }
 
         @media (min-width: 900px) {
