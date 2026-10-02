@@ -4,7 +4,7 @@ import { FaqPageContent } from "@/components/FaqPageContent";
 export const metadata: Metadata = {
   title: "FAQ | Mahout",
   description:
-    "Answers about Mahout, North Star, Path, trust, memory, Free vs Pro, North Star Credits, privacy, and Android launch.",
+    "Answers about Mahout, North Star, Path, trust, memory, Free vs Pro, North Star Credits, privacy, and Google Play.",
 };
 
 export default function FaqPage() {

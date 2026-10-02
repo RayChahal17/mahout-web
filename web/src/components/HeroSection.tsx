@@ -5,6 +5,7 @@ import { MagneticButton } from "./MagneticButton";
 import { PremiumTransparentImage } from "./PremiumTransparentImage";
 import { ElementIconBadge, type ElementIconName } from "./ElementIcon";
 import { MAHOUT_ELEMENT_IMAGES } from "@/lib/mahoutAssets";
+import { PLAY_STORE_URL } from "@/lib/siteLinks";
 
 const ELEMENT_CHIPS: Array<{
   name: string;
@@ -85,7 +86,7 @@ export function HeroSection() {
               </p>
 
               <div className="hero-ctas">
-                <MagneticButton href="/waitlist">Form my North Star</MagneticButton>
+                <MagneticButton href={PLAY_STORE_URL}>Get Mahout on Google Play</MagneticButton>
 
                 <MagneticButton href="#story" variant="secondary">
                   See the system

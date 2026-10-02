@@ -1,5 +1,8 @@
 import Link from "next/link";
 import { Container } from "./Container";
+import { EonexEmblem } from "./EonexBrand";
+import { PlayStoreLink } from "./PlayStoreLink";
+import { EONEX_URL } from "@/lib/siteLinks";
 
 const PRODUCT_LINKS = [
   { href: "/#story", label: "Story" },
@@ -9,7 +12,6 @@ const PRODUCT_LINKS = [
 ];
 
 const COMPANY_LINKS = [
-  { href: "/waitlist", label: "Waitlist" },
   { href: "/how-it-works", label: "How it works" },
   { href: "/faq", label: "FAQ" },
   { href: "/support", label: "Support" },
@@ -20,16 +22,20 @@ const LEGAL_LINKS = [
   { href: "/terms", label: "Terms" },
 ];
 
-const EONEX_URL = "https://eonextechnologies.com/";
-
-function EonexLink({ children }: { children: React.ReactNode }) {
+function EonexLink({
+  children,
+  marked = false,
+}: {
+  children: React.ReactNode;
+  marked?: boolean;
+}) {
   return (
     <a
       href={EONEX_URL}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Eonex Technologies, opens in a new tab"
-      className="eonex-credit-link"
+      className={marked ? "eonex-credit-link eonex-credit-link--mark" : "eonex-credit-link"}
     >
       {children}
     </a>
@@ -122,7 +128,12 @@ export function Footer() {
                 lineHeight: "var(--leading_body)",
               }}
             >
-              A product of <EonexLink>Eonex Technologies</EonexLink>
+              <EonexLink marked>
+                <span className="eonex-credit-row">
+                  <EonexEmblem />
+                  <span>A product of Eonex Technologies</span>
+                </span>
+              </EonexLink>
             </p>
           </div>
 
@@ -174,6 +185,14 @@ export function Footer() {
                 marginBottom: "var(--mahout_space_16)",
               }}
             >
+              <PlayStoreLink
+                style={{
+                  color: "var(--mahout_text_secondary)",
+                  fontSize: "var(--text_body_m)",
+                }}
+              >
+                Get the app
+              </PlayStoreLink>
               {COMPANY_LINKS.map((item) => (
                 <Link
                   key={item.href}
@@ -243,6 +262,21 @@ export function Footer() {
           text-decoration: underline;
           text-underline-offset: 0.12em;
           transition: color 0.2s ease;
+        }
+
+        .eonex-credit-link--mark {
+          text-decoration: none;
+        }
+
+        .eonex-credit-row {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+        }
+
+        .eonex-credit-row span {
+          text-decoration: underline;
+          text-underline-offset: 0.12em;
         }
 
         .eonex-credit-link:hover {

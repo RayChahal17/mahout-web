@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { PlayStoreLink } from "./PlayStoreLink";
 
 export function StickyCta() {
   return (
@@ -18,8 +18,7 @@ export function StickyCta() {
         justifyContent: "center",
       }}
     >
-      <Link
-        href="/waitlist"
+      <PlayStoreLink
         style={{
           display: "inline-flex",
           alignItems: "center",
@@ -34,8 +33,8 @@ export function StickyCta() {
           transition: "transform 0.15s, box-shadow 0.15s",
         }}
       >
-        Form my North Star
-      </Link>
+        Get Mahout
+      </PlayStoreLink>
     </div>
   );
 }

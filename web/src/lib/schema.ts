@@ -1,3 +1,5 @@
+import { EONEX_URL, PLAY_STORE_URL } from "@/lib/siteLinks";
+
 const BASE = process.env.NEXT_PUBLIC_BASE_URL || "https://mahout.app";
 
 export function getOrganizationSchema() {
@@ -11,7 +13,7 @@ export function getOrganizationSchema() {
     parentOrganization: {
       "@type": "Organization",
       name: "Eonex Technologies",
-      url: "https://eonextechnologies.com/",
+      url: EONEX_URL,
     },
   };
 }
@@ -38,6 +40,9 @@ export function getSoftwareApplicationSchema() {
     "@type": "SoftwareApplication",
     name: "Mahout",
     applicationCategory: "LifestyleApplication",
+    operatingSystem: "Android",
+    downloadUrl: PLAY_STORE_URL,
+    installUrl: PLAY_STORE_URL,
     description:
       "A personal operating system—guided by Future You. Meaning. Time. Emotion. One calm system.",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },

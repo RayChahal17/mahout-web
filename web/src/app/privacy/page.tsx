@@ -22,7 +22,7 @@ const PRIVACY_POINTS = [
   {
     title: "What we store",
     body:
-      "Waitlist signups store only what you provide. App usage data should be opt-in and limited to operational needs.",
+      "This site does not store a waitlist. App usage data should stay opt-in and limited to operational needs.",
   },
   {
     title: "Safety boundaries",

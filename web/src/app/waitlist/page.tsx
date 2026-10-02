@@ -1,51 +1,57 @@
-"use client";
-
-import { useState } from "react";
+import type { Metadata } from "next";
 import { Container } from "@/components/Container";
-import { WaitlistForm } from "@/components/WaitlistForm";
-import { PremiumEyebrow, ProductMock, ProofPanel, SectionShell } from "@/components/PremiumMarketing";
+import { EonexLockup } from "@/components/EonexBrand";
+import { PlayStoreLink } from "@/components/PlayStoreLink";
+import { PremiumEyebrow, ProofPanel, SectionShell } from "@/components/PremiumMarketing";
+
+export const metadata: Metadata = {
+  title: "Get Mahout | Mahout",
+  description: "Mahout is on Google Play for Android.",
+};
 
 export default function WaitlistPage() {
-  const [submitted, setSubmitted] = useState(false);
-
   return (
     <div className="premium-page">
-      <SectionShell tone="gold" style={{ minHeight: "72vh", display: "flex", alignItems: "center", paddingBottom: 150 }}>
+      <SectionShell
+        tone="hero"
+        style={{ minHeight: "72vh", display: "flex", alignItems: "center", paddingBottom: 150 }}
+      >
         <Container>
-          <ProofPanel active style={{ maxWidth: 980, margin: "0 auto" }}>
-            <div className="premium-grid-2" style={{ alignItems: "center", gap: "clamp(28px, 5vw, 64px)" }}>
-              <div>
-                <PremiumEyebrow>Private beta</PremiumEyebrow>
-                <h1
-                  style={{
-                    fontFamily: "var(--font_head)",
-                    fontSize: "var(--text_h1)",
-                    lineHeight: "var(--leading_tight)",
-                    letterSpacing: "-0.06em",
-                    margin: "var(--mahout_space_24) 0 var(--mahout_space_16)",
-                  }}
-                >
-                  Form your North Star.
-                </h1>
-                <p className="premium-copy" style={{ fontSize: "var(--text_body)" }}>
-                  Join the early list for the premium product experience: future vision, Path execution,
-                  Brain memory, and North Star guidance.
-                </p>
-                {submitted && (
-                  <p style={{ color: "var(--mahout_gold)", fontWeight: 700 }}>
-                    You're in. We'll reach out as access opens.
-                  </p>
-                )}
-              </div>
-              {submitted ? (
-                <ProductMock
-                  eyebrow="Access requested"
-                  title="Your place is saved."
-                  rows={["Private beta", "North Star preview", "Launch updates"]}
-                />
-              ) : (
-                <WaitlistForm onSuccess={() => setSubmitted(true)} />
-              )}
+          <ProofPanel active style={{ maxWidth: 720, margin: "0 auto", textAlign: "center" }}>
+            <PremiumEyebrow>On Google Play</PremiumEyebrow>
+            <h1
+              style={{
+                fontFamily: "var(--font_head)",
+                fontSize: "var(--text_h1)",
+                lineHeight: "var(--leading_tight)",
+                letterSpacing: "-0.06em",
+                margin: "var(--mahout_space_24) 0 var(--mahout_space_16)",
+              }}
+            >
+              Mahout is on Google Play.
+            </h1>
+            <p className="premium-copy" style={{ fontSize: "var(--text_body)", marginBottom: "var(--mahout_space_24)" }}>
+              Available now for Android. Five elements, one North Star.
+            </p>
+            <PlayStoreLink
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                minHeight: "var(--mahout_btn_height)",
+                padding: "0 18px",
+                borderRadius: "var(--mahout_radius_button)",
+                background: "var(--mahout_accent)",
+                color: "var(--mahout_on_accent)",
+                fontWeight: 600,
+                fontSize: "var(--text_body)",
+                boxShadow: "var(--shadow_m), 0 0 24px var(--mahout_premium_accent_2)",
+              }}
+            >
+              Get Mahout on Google Play
+            </PlayStoreLink>
+            <div>
+              <EonexLockup />
             </div>
           </ProofPanel>
         </Container>

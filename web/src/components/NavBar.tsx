@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Container } from "./Container";
+import { PlayStoreLink } from "./PlayStoreLink";
 
 const SECTION_ITEMS = [
   { id: "story", label: "Story" },
@@ -169,11 +170,10 @@ export function NavBar() {
                   textTransform: "uppercase",
                 }}
               >
-                Private beta
+                On Google Play
               </span>
 
-              <Link
-                href="/waitlist"
+              <PlayStoreLink
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -186,10 +186,11 @@ export function NavBar() {
                   fontWeight: 600,
                   fontSize: "var(--text_body)",
                   boxShadow: "var(--shadow_m), 0 0 24px var(--mahout_premium_accent_2)",
+                  whiteSpace: "nowrap",
                 }}
               >
-                Form my North Star
-              </Link>
+                Get Mahout on Google Play
+              </PlayStoreLink>
             </div>
 
             <button
@@ -290,8 +291,7 @@ export function NavBar() {
                 </Link>
               ))}
 
-              <Link
-                href="/waitlist"
+              <PlayStoreLink
                 onClick={() => setOpen(false)}
                 style={{
                   display: "inline-flex",
@@ -306,8 +306,8 @@ export function NavBar() {
                   boxShadow: "var(--shadow_m), 0 0 24px var(--mahout_premium_accent_2)",
                 }}
               >
-                Form my North Star
-              </Link>
+                Get Mahout on Google Play
+              </PlayStoreLink>
             </div>
           )}
         </div>

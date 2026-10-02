@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Container } from "./Container";
+import { PlayStoreLink } from "./PlayStoreLink";
 import { FaqAccordion } from "./FaqAccordion";
 import {
   ALL_FAQ_ITEMS,
@@ -225,7 +226,7 @@ export function FaqPageContent() {
                   <span className="faq-page-cta__eyebrow">Still unsure?</span>
                   <h2 className="faq-page-cta__title">Read the policy. Reach out calmly.</h2>
                   <p className="faq-page-cta__copy">
-                    Privacy, terms, and launch support live on their own pages so this FAQ can
+                    Privacy, terms, and support live on their own pages so this FAQ can
                     stay focused on product clarity.
                   </p>
                   <div className="faq-page-cta__links">
@@ -238,9 +239,9 @@ export function FaqPageContent() {
                     <Link href="/support" className="faq-page-cta__link">
                       Support
                     </Link>
-                    <Link href="/waitlist" className="faq-page-cta__link faq-page-cta__link--primary">
-                      Join waitlist
-                    </Link>
+                    <PlayStoreLink className="faq-page-cta__link faq-page-cta__link--primary">
+                      Get Mahout on Google Play
+                    </PlayStoreLink>
                   </div>
                   <p className="faq-page-cta__email">
                     Or email{" "}

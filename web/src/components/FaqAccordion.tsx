@@ -79,6 +79,18 @@ export function FaqAccordion({
             >
               <div className="faq-accordion__panel">
                 <p className="faq-accordion__answer">{item.answer}</p>
+                {item.answerHref && item.answerHrefLabel ? (
+                  <p className="faq-accordion__answer" style={{ marginTop: 12 }}>
+                    <a
+                      className="premium-link"
+                      href={item.answerHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {item.answerHrefLabel}
+                    </a>
+                  </p>
+                ) : null}
               </div>
             </div>
           </article>

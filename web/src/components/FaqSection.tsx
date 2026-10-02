@@ -30,7 +30,7 @@ export function FaqSection() {
 
         <div className="faq-home-footer">
           <p className="faq-home-footer__copy">
-            Pricing, North Star Credits, memory control, modes, letters, habits, and launch details
+            Pricing, North Star Credits, memory control, modes, letters, habits, and where to get Mahout
             live on the full FAQ page.
           </p>
           <Link href="/faq" className="faq-home-read-more">

@@ -1,8 +1,12 @@
+import { PLAY_STORE_URL } from "@/lib/siteLinks";
+
 export type MahoutFaqItem = {
   id: string;
   question: string;
   answer: string;
   featured?: boolean;
+  answerHref?: string;
+  answerHrefLabel?: string;
 };
 
 export type MahoutFaqCategory = {
@@ -187,7 +191,7 @@ export const MAHOUT_FAQ_CATEGORIES: MahoutFaqCategory[] = [
   },
   {
     id: "privacy-launch",
-    title: "Privacy, memory, and launch",
+    title: "Privacy, memory, and availability",
     items: [
       {
         id: "memory-control",
@@ -199,19 +203,20 @@ export const MAHOUT_FAQ_CATEGORIES: MahoutFaqCategory[] = [
         id: "privacy-posture",
         question: "How does Mahout approach privacy?",
         answer:
-          "Mahout is built trust-first: calm intelligence with user control, receipts instead of vague motivation, and privacy that feels engineered rather than bolted on. See the Privacy page for the current policy details as launch approaches.",
+          "Mahout is built trust-first: calm intelligence with user control, receipts instead of vague motivation, and privacy that feels engineered rather than bolted on. See the Privacy page for how memory and data stay in your control.",
       },
       {
         id: "android-launch",
-        question: "When is Mahout available on Android?",
-        answer:
-          "Mahout is preparing for Android launch. Join the waitlist on the homepage for early access updates. Availability, pricing, and store details may evolve during beta — the site will stay aligned with what the app actually ships.",
+        question: "Where can I get Mahout?",
+        answer: "Mahout is on Google Play for Android.",
+        answerHref: PLAY_STORE_URL,
+        answerHrefLabel: "Get Mahout on Google Play",
       },
       {
         id: "get-help",
         question: "Where do I go for support?",
         answer:
-          "Email hello@mahout.app for access questions, account help, or launch support. The Support page uses the same calm channel.",
+          "Email hello@mahout.app for account help or product support. The Support page uses the same calm channel.",
       },
     ],
   },

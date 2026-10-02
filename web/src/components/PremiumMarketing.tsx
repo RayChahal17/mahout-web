@@ -402,12 +402,14 @@ export function PremiumPageIntro({
   body,
   ctaHref = "/",
   ctaLabel = "Back to home",
+  ctaExternal = false,
 }: {
   eyebrow: string;
   title: string;
   body: string;
   ctaHref?: string;
   ctaLabel?: string;
+  ctaExternal?: boolean;
 }) {
   return (
     <SectionShell tone="hero" style={{ paddingTop: "clamp(72px, 10vh, 130px)" }}>
@@ -429,9 +431,15 @@ export function PremiumPageIntro({
           <p className="premium-copy" style={{ maxWidth: "62ch", margin: "0 auto var(--mahout_space_24)" }}>
             {body}
           </p>
-          <Link className="premium-link" href={ctaHref}>
-            {ctaLabel}
-          </Link>
+          {ctaExternal ? (
+            <a className="premium-link" href={ctaHref} target="_blank" rel="noopener noreferrer">
+              {ctaLabel}
+            </a>
+          ) : (
+            <Link className="premium-link" href={ctaHref}>
+              {ctaLabel}
+            </Link>
+          )}
         </ProofPanel>
       </Container>
     </SectionShell>

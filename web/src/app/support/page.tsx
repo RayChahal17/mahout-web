@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/Container";
+import { EonexLockup } from "@/components/EonexBrand";
+import { PlayStoreLink } from "@/components/PlayStoreLink";
 import { PremiumPageIntro, ProofPanel, SectionShell } from "@/components/PremiumMarketing";
 
 export const metadata: Metadata = {
@@ -13,7 +15,7 @@ export default function SupportPage() {
       <PremiumPageIntro
         eyebrow="Support"
         title="Need help with Mahout?"
-        body="Questions, access requests, and launch support can route through the same calm channel."
+        body="Questions about Mahout can come through the same calm channel."
       />
       <SectionShell tone="quiet" style={{ paddingBottom: 150 }}>
         <Container>
@@ -24,6 +26,10 @@ export default function SupportPage() {
             <p className="premium-copy" style={{ margin: 0 }}>
               Email <a className="premium-link" href="mailto:hello@mahout.app">hello@mahout.app</a> and we will help from there.
             </p>
+            <p style={{ margin: "var(--mahout_space_16) 0 0" }}>
+              <PlayStoreLink className="premium-link">Get Mahout on Google Play</PlayStoreLink>
+            </p>
+            <EonexLockup />
           </ProofPanel>
         </Container>
       </SectionShell>

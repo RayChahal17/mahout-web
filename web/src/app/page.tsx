@@ -1,7 +1,4 @@
-﻿"use client";
-
-import { useState } from "react";
-import { Container } from "@/components/Container";
+﻿import { Container } from "@/components/Container";
 import { GlassCard } from "@/components/GlassCard";
 import { HeroSection } from "@/components/HeroSection";
 import { JourneyOrbitSection } from "@/components/JourneyOrbitSection";
@@ -13,7 +10,8 @@ import { NorthStarBrainPremiumSection } from "@/components/NorthStarBrainPremium
 import { HabitsBehaviorsSignalsSection } from "@/components/HabitsBehaviorsSignalsSection";
 import { LettersReviewsSection } from "@/components/LettersReviewsSection";
 import { ConversationModesSection } from "@/components/ConversationModesSection";
-import { WaitlistForm } from "@/components/WaitlistForm";
+import { EonexLockup } from "@/components/EonexBrand";
+import { PlayStoreLink } from "@/components/PlayStoreLink";
 import { LenisProvider } from "@/components/LenisProvider";
 import { FaqSection } from "@/components/FaqSection";
 
@@ -44,8 +42,6 @@ const TRUST_SIGNALS = [
 ];
 
 export default function Home() {
-  const [waitlistSuccess, setWaitlistSuccess] = useState(false);
-
   return (
     <LenisProvider>
       <div className="premium-page">
@@ -185,40 +181,57 @@ export default function Home() {
 
         <FaqSection />
 
-        <section id="waitlist" data-section style={{ paddingBottom: 150 }}>
+        <section id="get-mahout" data-section style={{ paddingBottom: 150 }}>
           <Container>
-            <GlassCard active style={{ maxWidth: 560, margin: "0 auto" }}>
-              {waitlistSuccess ? (
-                <div style={{ textAlign: "center" }}>
-                  <h2 style={{ fontFamily: "var(--font_head)", fontSize: "var(--text_h2)", marginBottom: "var(--mahout_space_12)" }}>
-                    You're in.
-                  </h2>
-                  <p style={{ color: "var(--mahout_text_secondary)" }}>We'll reach out when Mahout is ready.</p>
-                </div>
-              ) : (
-                <>
-                  <h2
-                    style={{
-                      fontFamily: "var(--font_head)",
-                      fontSize: "var(--text_h2)",
-                      marginBottom: "var(--mahout_space_12)",
-                      textAlign: "center",
-                    }}
-                  >
-                    Form my North Star.
-                  </h2>
-                  <p
-                    style={{
-                      color: "var(--mahout_text_secondary)",
-                      textAlign: "center",
-                      marginBottom: "var(--mahout_space_24)",
-                    }}
-                  >
-                    Join the private beta.
-                  </p>
-                  <WaitlistForm onSuccess={() => setWaitlistSuccess(true)} />
-                </>
-              )}
+            <GlassCard active style={{ maxWidth: 640, margin: "0 auto", textAlign: "center" }}>
+              <div
+                style={{
+                  color: "var(--mahout_text_tertiary)",
+                  fontSize: "var(--text_caption)",
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  marginBottom: "var(--mahout_space_12)",
+                }}
+              >
+                Available now
+              </div>
+              <h2
+                style={{
+                  fontFamily: "var(--font_head)",
+                  fontSize: "var(--text_h2)",
+                  marginBottom: "var(--mahout_space_12)",
+                }}
+              >
+                Get Mahout.
+              </h2>
+              <p
+                style={{
+                  color: "var(--mahout_text_secondary)",
+                  marginBottom: "var(--mahout_space_24)",
+                }}
+              >
+                On Google Play for Android.
+              </p>
+              <PlayStoreLink
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  minHeight: "var(--mahout_btn_height)",
+                  padding: "0 18px",
+                  borderRadius: "var(--mahout_radius_button)",
+                  background: "var(--mahout_accent)",
+                  color: "var(--mahout_on_accent)",
+                  fontWeight: 600,
+                  fontSize: "var(--text_body)",
+                  boxShadow: "var(--shadow_m), 0 0 24px var(--mahout_premium_accent_2)",
+                }}
+              >
+                Get Mahout on Google Play
+              </PlayStoreLink>
+              <div>
+                <EonexLockup />
+              </div>
             </GlassCard>
           </Container>
         </section>

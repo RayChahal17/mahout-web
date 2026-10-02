@@ -58,21 +58,28 @@ export function MagneticButton({
     boxShadow: "inset 0 1px 0 rgba(255,255,255,0.10)",
   };
 
-  return (
-    <Link
-      ref={ref}
-      href={href}
-      className={`magnetic-btn mahout-btn mahout-btn-${variant} ${className}`.trim()}
-      style={{
-        ...(variant === "primary" ? primaryStyle : secondaryStyle),
-        ...style,
-        transform: `translate(${position.x}px, ${position.y}px)`,
-        transition: "transform 0.15s ease-out, box-shadow 0.15s",
-      }}
-      onMouseMove={handleMouse}
-      onMouseLeave={handleMouseLeave}
-    >
-      {children}
-    </Link>
-  );
+  const external = /^https?:\/\//.test(href);
+  const shared = {
+    ref,
+    href,
+    className: `magnetic-btn mahout-btn mahout-btn-${variant} ${className}`.trim(),
+    style: {
+      ...(variant === "primary" ? primaryStyle : secondaryStyle),
+      ...style,
+      transform: `translate(${position.x}px, ${position.y}px)`,
+      transition: "transform 0.15s ease-out, box-shadow 0.15s",
+    },
+    onMouseMove: handleMouse,
+    onMouseLeave: handleMouseLeave,
+  };
+
+  if (external) {
+    return (
+      <a {...shared} target="_blank" rel="noopener noreferrer">
+        {children}
+      </a>
+    );
+  }
+
+  return <Link {...shared}>{children}</Link>;
 }

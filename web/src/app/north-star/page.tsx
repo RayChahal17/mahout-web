@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/Container";
+import { PLAY_STORE_URL } from "@/lib/siteLinks";
 import {
   PremiumPageIntro,
   ProductMock,
@@ -25,8 +26,9 @@ export default function NorthStarPage() {
         eyebrow="North Star"
         title="Future-you, built as a system."
         body="North Star is not a generic chatbot. It is the user's ideal future self shaped by future vision, then grounded by real receipts over time."
-        ctaHref="/waitlist"
-        ctaLabel="Form my North Star"
+        ctaHref={PLAY_STORE_URL}
+        ctaLabel="Get Mahout on Google Play"
+        ctaExternal
       />
 
       <SectionShell tone="quiet">
