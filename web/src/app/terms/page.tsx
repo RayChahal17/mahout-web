@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/Container";
 import { PremiumPageIntro, ProofPanel, SectionShell } from "@/components/PremiumMarketing";
-import { EONEX_URL, PLAY_STORE_URL } from "@/lib/siteLinks";
+import { PlayStoreLink } from "@/components/PlayStoreLink";
+import { EONEX_URL } from "@/lib/siteLinks";
 
 export const metadata: Metadata = {
   title: "Terms of Service | Mahout",
@@ -25,9 +26,7 @@ export default function TermsPage() {
                 Eonex Technologies
               </a>
               , available on Android through{" "}
-              <a className="premium-link" href={PLAY_STORE_URL} target="_blank" rel="noopener noreferrer">
-                Google Play
-              </a>
+              <PlayStoreLink className="premium-link">Google Play</PlayStoreLink>
               . Questions about these terms can go to hello@mahout.app.
             </p>
           </ProofPanel>

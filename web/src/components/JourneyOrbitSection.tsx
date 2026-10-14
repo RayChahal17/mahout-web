@@ -78,9 +78,21 @@ const JOURNEY_STEPS: JourneyStep[] = [
 
 const NODE_ANGLE_STEP = 72;
 const ACTIVE_NODE_ANGLE = 90;
-const AUTO_ADVANCE_MS = 7000;
-const MANUAL_PAUSE_MS = 12000;
+const DWELL_MS = 4500;
+const INTRO_DELAY_MS = 600;
+const MANUAL_PAUSE_MS = 8000;
 const STAGE_VISIBLE_RATIO = 0.28;
+const POINTER_SCROLL_SLOP = 12;
+const NORTH_STAR_INDEX = JOURNEY_STEPS.length - 1;
+
+type OrbitScheduler = {
+  timer: number;
+  remaining: number;
+  runningSince: number | null;
+  introPlayed: boolean;
+  userInteracted: boolean;
+  nextDelay: number;
+};
 
 const PROGRESS_SHORT_LABELS: Record<ElementIconName, string> = {
   mountain: "Mountain",
@@ -226,17 +238,37 @@ function JourneyOrbitActiveCopy({ step, index }: { step: JourneyStep; index: num
 }
 
 export function JourneyOrbitSection() {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(NORTH_STAR_INDEX);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [hintHidden, setHintHidden] = useState(false);
+  const [cycleMs, setCycleMs] = useState(INTRO_DELAY_MS);
+  const [orbitPlaying, setOrbitPlaying] = useState(false);
+  const [fillNonce, setFillNonce] = useState(0);
 
   const sectionRef = useRef<HTMLElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
-  const pauseUntilRef = useRef(0);
   const isHoveredRef = useRef(false);
   const isFocusedWithinRef = useRef(false);
   const isStageVisibleRef = useRef(false);
   const isDocumentVisibleRef = useRef(true);
   const canHoverRef = useRef(false);
+  const isPointerDownRef = useRef(false);
+  const prefersReducedMotionRef = useRef(false);
+  const activeIndexRef = useRef(NORTH_STAR_INDEX);
+  const focusFromPointerRef = useRef(false);
+  const pointerHoldRef = useRef<{ id: number; x: number; y: number; scrolled: boolean } | null>(null);
+  const schedulerRef = useRef<OrbitScheduler>({
+    timer: 0,
+    remaining: INTRO_DELAY_MS,
+    runningSince: null,
+    introPlayed: false,
+    userInteracted: false,
+    nextDelay: DWELL_MS,
+  });
+  const kickSchedulerRef = useRef<() => void>(() => {});
+
+  prefersReducedMotionRef.current = prefersReducedMotion;
+  activeIndexRef.current = activeIndex;
 
   const activeStep = JOURNEY_STEPS[activeIndex];
 
@@ -248,8 +280,112 @@ export function JourneyOrbitSection() {
     return () => media.removeEventListener("change", update);
   }, []);
 
-  const extendManualPause = useCallback(() => {
-    pauseUntilRef.current = Date.now() + MANUAL_PAUSE_MS;
+  const setPlaying = useCallback((playing: boolean) => {
+    setOrbitPlaying((current) => (current === playing ? current : playing));
+  }, []);
+
+  const clearSchedulerTimer = useCallback(() => {
+    const scheduler = schedulerRef.current;
+    if (scheduler.timer) {
+      window.clearTimeout(scheduler.timer);
+      scheduler.timer = 0;
+    }
+  }, []);
+
+  const isBlocked = useCallback(() => {
+    if (prefersReducedMotionRef.current) return true;
+    if (!isStageVisibleRef.current) return true;
+    if (!isDocumentVisibleRef.current) return true;
+    if (isHoveredRef.current) return true;
+    if (canHoverRef.current && isFocusedWithinRef.current) return true;
+    if (isPointerDownRef.current) return true;
+    return false;
+  }, []);
+
+  const freezeScheduler = useCallback(() => {
+    const scheduler = schedulerRef.current;
+    if (scheduler.runningSince != null) {
+      scheduler.remaining = Math.max(0, scheduler.remaining - (Date.now() - scheduler.runningSince));
+      scheduler.runningSince = null;
+    }
+    clearSchedulerTimer();
+    setPlaying(false);
+  }, [clearSchedulerTimer, setPlaying]);
+
+  const kickScheduler = useCallback(() => {
+    const scheduler = schedulerRef.current;
+    if (prefersReducedMotionRef.current) {
+      freezeScheduler();
+      return;
+    }
+    if (isBlocked()) {
+      freezeScheduler();
+      return;
+    }
+
+    if (scheduler.runningSince == null) {
+      scheduler.runningSince = Date.now();
+    }
+    clearSchedulerTimer();
+    const elapsed = Date.now() - scheduler.runningSince;
+    const wait = Math.max(0, scheduler.remaining - elapsed);
+    setPlaying(true);
+
+    scheduler.timer = window.setTimeout(() => {
+      scheduler.timer = 0;
+      scheduler.runningSince = null;
+
+      if (isBlocked()) {
+        scheduler.remaining = 0;
+        setPlaying(false);
+        return;
+      }
+
+      if (!scheduler.introPlayed) {
+        if (scheduler.userInteracted) {
+          scheduler.introPlayed = true;
+          scheduler.remaining = scheduler.nextDelay;
+          kickSchedulerRef.current();
+          return;
+        }
+        scheduler.introPlayed = true;
+        scheduler.nextDelay = DWELL_MS;
+        scheduler.remaining = DWELL_MS;
+        setCycleMs(DWELL_MS);
+        setActiveIndex((current) => (current + 1) % JOURNEY_STEPS.length);
+        return;
+      }
+
+      scheduler.nextDelay = DWELL_MS;
+      scheduler.remaining = DWELL_MS;
+      setCycleMs(DWELL_MS);
+      setActiveIndex((current) => (current + 1) % JOURNEY_STEPS.length);
+    }, wait);
+  }, [clearSchedulerTimer, freezeScheduler, isBlocked, setPlaying]);
+
+  kickSchedulerRef.current = kickScheduler;
+
+  useEffect(() => {
+    if (!prefersReducedMotion) return;
+    clearSchedulerTimer();
+    schedulerRef.current.introPlayed = true;
+    schedulerRef.current.userInteracted = true;
+    schedulerRef.current.runningSince = null;
+    setPlaying(false);
+    setActiveIndex(0);
+  }, [prefersReducedMotion, clearSchedulerTimer, setPlaying]);
+
+  useEffect(() => {
+    if (!schedulerRef.current.introPlayed) return;
+    if (prefersReducedMotionRef.current) return;
+    kickSchedulerRef.current();
+  }, [activeIndex]);
+
+  useEffect(() => {
+    return () => {
+      const scheduler = schedulerRef.current;
+      if (scheduler.timer) window.clearTimeout(scheduler.timer);
+    };
   }, []);
 
   useEffect(() => {
@@ -258,7 +394,11 @@ export function JourneyOrbitSection() {
       canHoverRef.current = hoverMedia.matches;
       if (!hoverMedia.matches) {
         isHoveredRef.current = false;
+        if (isFocusedWithinRef.current) {
+          isFocusedWithinRef.current = false;
+        }
       }
+      kickSchedulerRef.current();
     };
     updateHover();
     hoverMedia.addEventListener("change", updateHover);
@@ -270,6 +410,7 @@ export function JourneyOrbitSection() {
 
     const onVisibilityChange = () => {
       isDocumentVisibleRef.current = document.visibilityState === "visible";
+      kickSchedulerRef.current();
     };
 
     document.addEventListener("visibilitychange", onVisibilityChange);
@@ -290,6 +431,7 @@ export function JourneyOrbitSection() {
               entry.isIntersecting && entry.intersectionRatio >= STAGE_VISIBLE_RATIO;
           }
         });
+        kickSchedulerRef.current();
       },
       {
         threshold: thresholds,
@@ -344,59 +486,112 @@ export function JourneyOrbitSection() {
     };
   }, []);
 
-  useEffect(() => {
-    if (prefersReducedMotion) return;
-
-    const advance = () => {
-      if (!isStageVisibleRef.current) return;
-      if (!isDocumentVisibleRef.current) return;
-      if (isHoveredRef.current) return;
-      if (isFocusedWithinRef.current) return;
-      if (Date.now() < pauseUntilRef.current) return;
-
-      setActiveIndex((current) => (current + 1) % JOURNEY_STEPS.length);
-    };
-
-    const intervalId = window.setInterval(advance, AUTO_ADVANCE_MS);
-    return () => window.clearInterval(intervalId);
-  }, [prefersReducedMotion]);
-
-  const handleStepSelect = useCallback(
-    (index: number) => {
-      setActiveIndex(index);
-      extendManualPause();
-    },
-    [extendManualPause]
-  );
+  const handleStepSelect = useCallback((index: number) => {
+    const scheduler = schedulerRef.current;
+    clearSchedulerTimer();
+    scheduler.runningSince = null;
+    scheduler.userInteracted = true;
+    scheduler.introPlayed = true;
+    scheduler.nextDelay = MANUAL_PAUSE_MS;
+    scheduler.remaining = MANUAL_PAUSE_MS;
+    setHintHidden(true);
+    setCycleMs(MANUAL_PAUSE_MS);
+    setFillNonce((current) => current + 1);
+    if (index === activeIndexRef.current) {
+      kickSchedulerRef.current();
+      return;
+    }
+    setActiveIndex(index);
+  }, [clearSchedulerTimer]);
 
   const handleStagePointerEnter = useCallback((event: PointerEvent<HTMLDivElement>) => {
     if (canHoverRef.current && event.pointerType === "mouse") {
       isHoveredRef.current = true;
+      kickSchedulerRef.current();
     }
   }, []);
 
   const handleStagePointerLeave = useCallback((event: PointerEvent<HTMLDivElement>) => {
     if (event.pointerType === "mouse") {
       isHoveredRef.current = false;
+      kickSchedulerRef.current();
     }
   }, []);
 
-  const handleStageFocusCapture = useCallback(
-    (event: FocusEvent<HTMLDivElement>) => {
-      isFocusedWithinRef.current = true;
-      const target = event.target as HTMLElement;
-      if (target.closest(".journey-orbit-node, .journey-orbit-progress__button")) {
-        extendManualPause();
-      }
-    },
-    [extendManualPause]
-  );
+  const handleStageFocusCapture = useCallback((event: FocusEvent<HTMLDivElement>) => {
+    if (focusFromPointerRef.current) {
+      focusFromPointerRef.current = false;
+      return;
+    }
+    if (!canHoverRef.current) return;
+    const target = event.target as HTMLElement;
+    if (!target.closest(".journey-orbit-node, .journey-orbit-progress__button")) return;
+    isFocusedWithinRef.current = true;
+    kickSchedulerRef.current();
+  }, []);
 
   const handleStageBlurCapture = useCallback((event: FocusEvent<HTMLDivElement>) => {
     const relatedTarget = event.relatedTarget as Node | null;
     if (!event.currentTarget.contains(relatedTarget)) {
       isFocusedWithinRef.current = false;
+      kickSchedulerRef.current();
     }
+  }, []);
+
+  const handleStagePointerDown = useCallback((event: PointerEvent<HTMLDivElement>) => {
+    focusFromPointerRef.current = true;
+    if (event.pointerType === "mouse") return;
+    const pointerId = event.pointerId;
+    pointerHoldRef.current = {
+      id: pointerId,
+      x: event.clientX,
+      y: event.clientY,
+      scrolled: false,
+    };
+    isPointerDownRef.current = true;
+    kickSchedulerRef.current();
+
+    const release = (native: globalThis.PointerEvent) => {
+      if (native.pointerId !== pointerId) return;
+      pointerHoldRef.current = null;
+      isPointerDownRef.current = false;
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerup", release);
+      window.removeEventListener("pointercancel", release);
+      kickSchedulerRef.current();
+    };
+    const move = (native: globalThis.PointerEvent) => {
+      const hold = pointerHoldRef.current;
+      if (!hold || native.pointerId !== pointerId || hold.scrolled) return;
+      const dx = native.clientX - hold.x;
+      const dy = native.clientY - hold.y;
+      if (dx * dx + dy * dy < POINTER_SCROLL_SLOP * POINTER_SCROLL_SLOP) return;
+      hold.scrolled = true;
+      isPointerDownRef.current = false;
+      kickSchedulerRef.current();
+    };
+    window.addEventListener("pointermove", move);
+    window.addEventListener("pointerup", release);
+    window.addEventListener("pointercancel", release);
+  }, []);
+
+  const handleStagePointerMove = useCallback((event: PointerEvent<HTMLDivElement>) => {
+    const hold = pointerHoldRef.current;
+    if (!hold || hold.id !== event.pointerId || hold.scrolled) return;
+    const dx = event.clientX - hold.x;
+    const dy = event.clientY - hold.y;
+    if (dx * dx + dy * dy < POINTER_SCROLL_SLOP * POINTER_SCROLL_SLOP) return;
+    hold.scrolled = true;
+    isPointerDownRef.current = false;
+    kickSchedulerRef.current();
+  }, []);
+
+  const handleStagePointerUp = useCallback((event: PointerEvent<HTMLDivElement>) => {
+    const hold = pointerHoldRef.current;
+    if (!hold || hold.id !== event.pointerId) return;
+    pointerHoldRef.current = null;
+    isPointerDownRef.current = false;
+    kickSchedulerRef.current();
   }, []);
 
   const handleOrbitKeyDown = useCallback(
@@ -427,6 +622,8 @@ export function JourneyOrbitSection() {
       data-home-anchor="story"
       data-active-element={activeStep.key}
       data-reduced-motion={prefersReducedMotion ? "true" : "false"}
+      data-orbit-playing={orbitPlaying ? "true" : "false"}
+      style={{ "--jo-auto-advance-ms": `${cycleMs}ms` } as CSSProperties}
     >
       <Container className="journey-orbit-container">
         <div className="journey-orbit-stack">
@@ -450,6 +647,10 @@ export function JourneyOrbitSection() {
             className="journey-orbit-stage"
             onPointerEnter={handleStagePointerEnter}
             onPointerLeave={handleStagePointerLeave}
+            onPointerDown={handleStagePointerDown}
+            onPointerMove={handleStagePointerMove}
+            onPointerUp={handleStagePointerUp}
+            onPointerCancel={handleStagePointerUp}
             onFocusCapture={handleStageFocusCapture}
             onBlurCapture={handleStageBlurCapture}
           >
@@ -506,6 +707,10 @@ export function JourneyOrbitSection() {
               </div>
             </div>
 
+            <p className="journey-orbit-hint" data-hidden={hintHidden ? "true" : "false"}>
+              It turns. Tap any element.
+            </p>
+
             <div
               className="journey-orbit-progress"
               role="group"
@@ -533,7 +738,7 @@ export function JourneyOrbitSection() {
                       {PROGRESS_SHORT_LABELS[step.key]}
                     </span>
                     <span
-                      key={isActive ? `orbit-progress-fill-${activeIndex}` : undefined}
+                      key={isActive ? `orbit-progress-fill-${activeIndex}-${fillNonce}` : undefined}
                       className="journey-orbit-progress__fill"
                       aria-hidden="true"
                     />

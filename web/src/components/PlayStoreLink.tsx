@@ -1,5 +1,7 @@
-import type { CSSProperties, MouseEventHandler, ReactNode } from "react";
-import { PLAY_STORE_URL } from "@/lib/siteLinks";
+"use client";
+
+import { useEffect, useState, type CSSProperties, type MouseEventHandler, type ReactNode } from "react";
+import { playStoreHref } from "@/lib/siteLinks";
 
 export function PlayStoreLink({
   children,
@@ -12,15 +14,14 @@ export function PlayStoreLink({
   style?: CSSProperties;
   onClick?: MouseEventHandler<HTMLAnchorElement>;
 }) {
+  const [href, setHref] = useState(() => playStoreHref());
+
+  useEffect(() => {
+    setHref(playStoreHref(window.location.search));
+  }, []);
+
   return (
-    <a
-      href={PLAY_STORE_URL}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={className}
-      style={style}
-      onClick={onClick}
-    >
+    <a href={href} className={className} style={style} onClick={onClick}>
       {children}
     </a>
   );

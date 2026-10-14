@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ReactNode } from "react";
 import { Container } from "./Container";
+import { PlayStoreLink } from "./PlayStoreLink";
 
 type Align = "left" | "center";
 type Tone = "default" | "hero" | "quiet" | "gold";
@@ -431,7 +432,9 @@ export function PremiumPageIntro({
           <p className="premium-copy" style={{ maxWidth: "62ch", margin: "0 auto var(--mahout_space_24)" }}>
             {body}
           </p>
-          {ctaExternal ? (
+          {ctaHref.includes("play.google.com") ? (
+            <PlayStoreLink className="premium-link">{ctaLabel}</PlayStoreLink>
+          ) : ctaExternal ? (
             <a className="premium-link" href={ctaHref} target="_blank" rel="noopener noreferrer">
               {ctaLabel}
             </a>

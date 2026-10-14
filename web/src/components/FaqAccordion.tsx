@@ -2,6 +2,7 @@
 
 import { useId, useState, type CSSProperties } from "react";
 import type { MahoutFaqItem } from "@/lib/mahoutFaq";
+import { PlayStoreLink } from "./PlayStoreLink";
 
 export function FaqAccordion({
   items,
@@ -81,14 +82,18 @@ export function FaqAccordion({
                 <p className="faq-accordion__answer">{item.answer}</p>
                 {item.answerHref && item.answerHrefLabel ? (
                   <p className="faq-accordion__answer" style={{ marginTop: 12 }}>
-                    <a
-                      className="premium-link"
-                      href={item.answerHref}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {item.answerHrefLabel}
-                    </a>
+                    {item.answerHref.includes("play.google.com") ? (
+                      <PlayStoreLink className="premium-link">{item.answerHrefLabel}</PlayStoreLink>
+                    ) : (
+                      <a
+                        className="premium-link"
+                        href={item.answerHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {item.answerHrefLabel}
+                      </a>
+                    )}
                   </p>
                 ) : null}
               </div>
