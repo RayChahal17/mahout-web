@@ -285,7 +285,7 @@ export function Footer() {
 
         @media (max-width: 720px) {
           .site-footer {
-            padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+            padding-bottom: calc(112px + env(safe-area-inset-bottom, 0px));
           }
         }
 

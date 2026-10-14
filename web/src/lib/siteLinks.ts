@@ -17,5 +17,7 @@ export function playStoreHref(search = ""): string {
 
 export const EONEX_URL = "https://eonextechnologies.com/";
 
+export const IOS_WAITLIST_EMAIL = "info@eonextechnologies.com";
+
 export const EONEX_INFINITY_SRC = "/images/brand/eonex-infinity.png";
 export const EONEX_LOCKUP_SRC = "/images/brand/eonex-lockup.png";

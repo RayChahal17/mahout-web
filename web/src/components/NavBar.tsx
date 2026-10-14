@@ -78,14 +78,18 @@ export function NavBar() {
                 minWidth: 0,
               }}
             >
-              <div
+              <img
+                src="/images/brand/mahout-app-icon.png"
+                alt=""
+                width={34}
+                height={34}
                 style={{
                   width: 34,
                   height: 34,
-                  borderRadius: 12,
-                  background: "linear-gradient(135deg, var(--mahout_accent), rgba(255,211,138,0.82))",
-                  boxShadow: "0 0 24px var(--mahout_premium_accent_2)",
+                  borderRadius: 10,
+                  objectFit: "cover",
                   flexShrink: 0,
+                  boxShadow: "0 0 18px var(--mahout_premium_accent_2)",
                 }}
               />
               <div style={{ display: "flex", flexDirection: "column", minWidth: 0 }}>
